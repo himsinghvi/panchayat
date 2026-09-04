@@ -302,6 +302,29 @@ Default: `8000`. Override with `PORT=8080 python main.py`.
 
 ---
 
+## Deploy on Vercel
+
+This repo is configured for Vercel serverless (see `vercel.json`).
+
+1. Import the GitHub repo at [vercel.com/new](https://vercel.com/new)
+2. **Root Directory:** leave as `.` (repository root) — **not** `frontend`
+3. **Framework Preset:** Vercel should detect FastAPI automatically
+4. Add environment variables in Project Settings:
+   - `SECRET_KEY` — required in production (random string)
+   - `AZURE_OPENAI_*` — optional, for AI features
+5. Deploy
+
+`vercel.json` runs `cd frontend && npm ci && npm run build` so the SPA is built into `static/dist` before the Python function starts.
+
+**Vercel limitations:**
+- SQLite uses `/tmp` — data resets when the function cold-starts (fine for demos; use Postgres/Turso for production)
+- File uploads are ephemeral on `/tmp`
+- Set `SECRET_KEY` in Vercel env vars (never commit secrets)
+
+After deploy, check `https://your-app.vercel.app/api/health` — should return `{"status":"ok",...}`.
+
+---
+
 ## Trust Principles
 
 1. Brands cannot unilaterally close complaints as resolved

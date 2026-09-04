@@ -1,11 +1,25 @@
-from pydantic_settings import BaseSettings
+import os
+from pathlib import Path
 from functools import lru_cache
+from pydantic import Field
+from pydantic_settings import BaseSettings
+
+
+def _default_database_url() -> str:
+    """Use /tmp on Vercel — project dir is read-only in serverless."""
+    if os.environ.get("VERCEL") or os.environ.get("VERCEL_ENV"):
+        return "sqlite:////tmp/panchaayat.db"
+    return "sqlite:///./panchaayat.db"
+
+
+def _project_root() -> Path:
+    return Path(__file__).resolve().parent.parent
 
 
 class Settings(BaseSettings):
     app_name: str = "Panchaayat"
     secret_key: str = "panchaayat-dev-secret-change-in-production"
-    database_url: str = "sqlite:///./panchaayat.db"
+    database_url: str = Field(default_factory=_default_database_url)
     azure_openai_api_key: str = ""
     azure_openai_endpoint: str = ""
     azure_openai_deployment: str = "gpt-4o-mini"
@@ -15,6 +29,20 @@ class Settings(BaseSettings):
 
     class Config:
         env_file = ".env"
+
+    @property
+    def is_vercel(self) -> bool:
+        return bool(os.environ.get("VERCEL") or os.environ.get("VERCEL_ENV"))
+
+    @property
+    def upload_dir(self) -> Path:
+        if self.is_vercel:
+            return Path("/tmp/panchaayat-uploads")
+        return _project_root() / "uploads"
+
+    @property
+    def static_dir(self) -> Path:
+        return _project_root() / "static" / "dist"
 
 
 @lru_cache
