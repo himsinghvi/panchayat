@@ -1,17 +1,19 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import { useBrand } from '../context/BrandContext'
 import ThemeToggle from './ThemeToggle'
+import BrandToggle from './BrandToggle'
+import BrandLogo from './BrandLogo'
 
 export default function Navbar() {
   const { user, logout, isBrand, isAdmin } = useAuth()
+  const { isModern } = useBrand()
   const navigate = useNavigate()
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-panchaayat sticky-top">
+    <nav className={`navbar navbar-expand-lg navbar-panchaayat sticky-top${isModern ? ' navbar-panchaayat--modern' : ''}`}>
       <div className="container">
-        <Link className="navbar-brand brand-logo" to="/">
-          Pancha<span>ayat</span>
-        </Link>
+        <BrandLogo variant="horizontal" />
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
           <span className="navbar-toggler-icon" />
         </button>
@@ -23,7 +25,8 @@ export default function Navbar() {
             <li className="nav-item"><Link className="nav-link" to="/for-business">For Business</Link></li>
             <li className="nav-item"><Link className="nav-link" to="/api">API</Link></li>
           </ul>
-          <div className="d-flex align-items-center gap-2">
+          <div className="d-flex align-items-center gap-2 flex-wrap">
+            <BrandToggle />
             <ThemeToggle />
             <Link to="/share" className="btn btn-primary btn-sm">
               <i className="bi bi-megaphone me-1" /> Share Experience

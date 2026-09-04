@@ -25,6 +25,7 @@ uploads/*
 .DS_Store
 Thumbs.db
 *.log
+~$*
 
 # Build cache
 .pytest_cache/

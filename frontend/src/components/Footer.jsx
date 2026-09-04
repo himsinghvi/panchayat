@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import AdBanner from './AdBanner'
+import BrandLogo from './BrandLogo'
 
 export default function Footer() {
   return (
@@ -7,8 +8,8 @@ export default function Footer() {
       <div className="container">
         <div className="row mb-4">
           <div className="col-md-4">
-            <h5 className="brand-logo mb-2">Pancha<span>ayat</span></h5>
-            <p className="text-muted small">
+            <BrandLogo variant="mark" className="mb-2 d-inline-block" />
+            <p className="text-muted small mt-2">
               Your voice matters. Share experiences, discuss publicly, and get real resolutions — verified by you.
             </p>
           </div>

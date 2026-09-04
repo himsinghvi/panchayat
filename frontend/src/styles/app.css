@@ -1,10 +1,107 @@
-/* ── Light theme (default) ── */
+/* ── Modern brand — teal + coral (default) ── */
 :root,
-[data-theme="light"] {
+[data-brand="modern"][data-theme="light"],
+[data-brand="modern"]:not([data-theme]) {
+  --primary: #178f85;
+  --primary-dark: #126b63;
+  --primary-light: #ddf3f1;
+  --accent: #e8654a;
+  --accent-soft: #fdeee9;
+  --success: #10b981;
+  --danger: #ef4444;
+  --warning: #e8654a;
+  --info: #178f85;
+  --bg: #f7faf9;
+  --surface: #ffffff;
+  --surface-elevated: #ffffff;
+  --surface-muted: #eef6f5;
+  --text: #0f172a;
+  --text-muted: #5f6b7a;
+  --border: #dce8e6;
+  --shadow: 0 1px 3px rgba(15, 23, 42, 0.06), 0 4px 12px rgba(23, 143, 133, 0.06);
+  --shadow-lg: 0 4px 6px rgba(15, 23, 42, 0.05), 0 10px 30px rgba(23, 143, 133, 0.1);
+  --hero-gradient: linear-gradient(135deg, #ddf3f1 0%, #fef3f0 45%, #f7faf9 100%);
+  --ad-gradient: linear-gradient(135deg, #f7faf9, #eef6f5);
+  --official-gradient: linear-gradient(135deg, #ddf3f1, #c8ebe8);
+  --guest-gradient: linear-gradient(90deg, #fdeee9, #fbd5cc);
+  --ai-gradient: linear-gradient(135deg, #eef6f5, #e0f0ee);
+  --ai-border: #9fd4ce;
+  --link-color: var(--text);
+  --navbar-bg: #0f1419;
+  --navbar-text: rgba(255, 255, 255, 0.88);
+  --navbar-toggler-filter: invert(1) brightness(0.95);
+  --stat-primary-bg: rgba(23, 143, 133, 0.12);
+  --stat-success-bg: rgba(16, 185, 129, 0.1);
+  --stat-warning-bg: rgba(232, 101, 74, 0.12);
+  --stat-info-bg: rgba(23, 143, 133, 0.1);
+  --stat-accent-bg: rgba(232, 101, 74, 0.1);
+  --status-open-bg: #fdeee9;
+  --status-open-text: #b45309;
+  --status-responded-bg: #ddf3f1;
+  --status-responded-text: #126b63;
+  --status-proposed-bg: #e0f0ee;
+  --status-proposed-text: #0f5c56;
+  --status-resolved-bg: #d1fae5;
+  --status-resolved-text: #065f46;
+  --status-reopened-bg: #fee2e2;
+  --status-reopened-text: #991b1b;
+  --radius: 12px;
+  --font: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+[data-brand="modern"][data-theme="dark"] {
+  --primary: #3ecfbe;
+  --primary-dark: #2bb3a4;
+  --primary-light: rgba(62, 207, 190, 0.15);
+  --accent: #f08060;
+  --accent-soft: rgba(240, 128, 96, 0.15);
+  --success: #34d399;
+  --danger: #f87171;
+  --warning: #f08060;
+  --info: #3ecfbe;
+  --bg: #0a1010;
+  --surface: #141c1c;
+  --surface-elevated: #1a2424;
+  --surface-muted: #101818;
+  --text: #f1f5f9;
+  --text-muted: #94a3b8;
+  --border: #2a3a38;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.35), 0 4px 12px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 4px 6px rgba(0, 0, 0, 0.3), 0 10px 30px rgba(0, 0, 0, 0.4);
+  --hero-gradient: linear-gradient(135deg, #0a1010 0%, #141c1c 50%, #0f1a1a 100%);
+  --ad-gradient: linear-gradient(135deg, #141c1c, #101818);
+  --official-gradient: linear-gradient(135deg, rgba(23, 143, 133, 0.2), rgba(62, 207, 190, 0.12));
+  --guest-gradient: linear-gradient(90deg, rgba(232, 101, 74, 0.18), rgba(240, 128, 96, 0.12));
+  --ai-gradient: linear-gradient(135deg, rgba(23, 143, 133, 0.18), rgba(62, 207, 190, 0.1));
+  --ai-border: #2a6b64;
+  --link-color: var(--text);
+  --navbar-bg: #080c0c;
+  --navbar-text: rgba(255, 255, 255, 0.9);
+  --navbar-toggler-filter: invert(1) brightness(0.9);
+  --stat-primary-bg: rgba(62, 207, 190, 0.15);
+  --stat-success-bg: rgba(52, 211, 153, 0.15);
+  --stat-warning-bg: rgba(240, 128, 96, 0.15);
+  --stat-info-bg: rgba(62, 207, 190, 0.12);
+  --stat-accent-bg: rgba(240, 128, 96, 0.12);
+  --status-open-bg: rgba(240, 128, 96, 0.18);
+  --status-open-text: #fdba74;
+  --status-responded-bg: rgba(62, 207, 190, 0.18);
+  --status-responded-text: #99f6e4;
+  --status-proposed-bg: rgba(23, 143, 133, 0.2);
+  --status-proposed-text: #5eead4;
+  --status-resolved-bg: rgba(52, 211, 153, 0.2);
+  --status-resolved-text: #6ee7b7;
+  --status-reopened-bg: rgba(248, 113, 113, 0.2);
+  --status-reopened-text: #fca5a5;
+}
+
+/* ── Classic brand — blue + amber ── */
+[data-brand="classic"][data-theme="light"] {
   --primary: #2563eb;
   --primary-dark: #1d4ed8;
   --primary-light: #dbeafe;
   --accent: #f59e0b;
+  --accent-soft: #fef3c7;
   --success: #10b981;
   --danger: #ef4444;
   --warning: #f59e0b;
@@ -25,6 +122,8 @@
   --ai-gradient: linear-gradient(135deg, #ede9fe, #ddd6fe);
   --ai-border: #c4b5fd;
   --link-color: var(--text);
+  --navbar-bg: var(--surface);
+  --navbar-text: var(--text-muted);
   --navbar-toggler-filter: none;
   --stat-primary-bg: rgba(37, 99, 235, 0.1);
   --stat-success-bg: rgba(16, 185, 129, 0.1);
@@ -41,16 +140,14 @@
   --status-resolved-text: #065f46;
   --status-reopened-bg: #fee2e2;
   --status-reopened-text: #991b1b;
-  --radius: 12px;
-  --font: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-/* ── Dark theme ── */
-[data-theme="dark"] {
+[data-brand="classic"][data-theme="dark"] {
   --primary: #60a5fa;
   --primary-dark: #3b82f6;
   --primary-light: rgba(96, 165, 250, 0.15);
   --accent: #fbbf24;
+  --accent-soft: rgba(251, 191, 36, 0.15);
   --success: #34d399;
   --danger: #f87171;
   --warning: #fbbf24;
@@ -71,6 +168,8 @@
   --ai-gradient: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(167, 139, 250, 0.15));
   --ai-border: #6d28d9;
   --link-color: var(--text);
+  --navbar-bg: var(--surface);
+  --navbar-text: var(--text-muted);
   --navbar-toggler-filter: invert(1) brightness(0.9);
   --stat-primary-bg: rgba(96, 165, 250, 0.15);
   --stat-success-bg: rgba(52, 211, 153, 0.15);
@@ -137,19 +236,102 @@ body {
 
 /* Navbar */
 .navbar-panchaayat {
-  background: var(--surface) !important;
+  background: var(--navbar-bg, var(--surface)) !important;
   border-bottom: 1px solid var(--border);
   box-shadow: var(--shadow);
 }
-.navbar-panchaayat .nav-link { color: var(--text-muted); }
-.navbar-panchaayat .nav-link:hover { color: var(--primary); }
+.navbar-panchaayat .nav-link {
+  color: var(--navbar-text, var(--text-muted));
+}
+.navbar-panchaayat .nav-link:hover {
+  color: var(--primary);
+}
+
+[data-brand="modern"] .navbar-panchaayat {
+  border-bottom-color: rgba(23, 143, 133, 0.35);
+}
+[data-brand="modern"] .navbar-panchaayat .nav-link:hover {
+  color: #3ecfbe;
+}
+[data-brand="modern"] .navbar-panchaayat .btn-outline-secondary {
+  color: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+[data-brand="modern"] .navbar-panchaayat .btn-outline-secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+[data-brand="modern"] .navbar-panchaayat .btn-outline-primary {
+  color: #3ecfbe;
+  border-color: rgba(62, 207, 190, 0.5);
+}
+[data-brand="modern"] .navbar-panchaayat .btn-outline-primary:hover {
+  background: rgba(62, 207, 190, 0.12);
+  color: #fff;
+}
+
+.brand-logo-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  line-height: 0;
+}
+.brand-logo-img {
+  width: auto;
+  max-width: 200px;
+  object-fit: contain;
+}
+.brand-mark-img {
+  width: auto;
+  object-fit: contain;
+}
+
+.btn-brand-toggle {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface-muted);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.btn-brand-toggle:hover {
+  background: var(--primary-light);
+  color: var(--primary);
+  border-color: var(--primary);
+}
+[data-brand="modern"] .navbar-panchaayat .btn-brand-toggle {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.85);
+}
+[data-brand="modern"] .navbar-panchaayat .btn-brand-toggle:hover {
+  background: rgba(62, 207, 190, 0.15);
+  border-color: rgba(62, 207, 190, 0.5);
+  color: #fff;
+}
+[data-brand="modern"] .navbar-panchaayat .btn-theme-toggle {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.85);
+}
+[data-brand="modern"] .navbar-panchaayat .btn-theme-toggle:hover {
+  background: rgba(62, 207, 190, 0.15);
+  border-color: rgba(62, 207, 190, 0.5);
+  color: #fff;
+}
 
 .brand-logo {
   font-weight: 800;
   font-size: 1.5rem;
   color: var(--primary) !important;
+  text-decoration: none;
 }
 .brand-logo span { color: var(--accent); }
+.brand-logo--footer {
+  font-size: 1.25rem;
+  display: inline-block;
+}
 
 .navbar-panchaayat .navbar-toggler-icon {
   filter: var(--navbar-toggler-filter);
