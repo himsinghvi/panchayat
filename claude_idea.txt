@@ -1,0 +1,179 @@
+# Product Idea: Consumer Voice Platform (Working Title: "Panchaayat")
+
+## 1. One-line pitch
+
+A public platform where consumers post reviews, complaints, and grievances about products, brands, shops, or individuals — tagged by location and brand — where the public can discuss, brands can respond and mark issues resolved, and the original consumer confirms resolution before it's closed.
+
+## 2. Problem statement
+
+- Existing options (Google reviews, NCH, MouthShut, consumercomplaints.in) are fragmented: reviews live in one place, formal complaints in another, and there's no consistent "loop" where a brand response is verified by the actual affected consumer.
+- Most review platforms let anyone post a reply as "the business," with no real accountability or resolution tracking.
+- Consumers have no single place to see a shop/brand's *complaint resolution track record*, not just star ratings.
+
+## 3. Core value proposition
+
+- **For consumers**: one place to vent, get visibility, and get an actual resolution — not just a star rating that disappears into a database.
+- **For brands/shops**: a structured inbox of grievances they can respond to publicly, building trust when they resolve issues (vs. hiding from bad reviews).
+- **For the public**: transparent, community-discussed complaint threads with verified resolution status — better signal than a plain review.
+
+## 4. Target users / personas
+
+1. **Consumer (Complainant)** — posts a review/grievance, tags brand + location, discusses, confirms resolution.
+2. **Brand/Business Rep (Claimed account)** — verified representative of a shop/brand who can respond officially, mark "resolved," escalate internally.
+3. **Community Member (Reader/Commenter)** — browses, comments, upvotes, adds their own experience to existing threads.
+4. **Moderator/Admin** — handles abuse reports, verifies brand claims, manages spam/fake reviews.
+5. (Future) **Government/Consumer-body liaison** — read-only or escalation-partner role, e.g., linking unresolved cases to NCH/E-Jagriti.
+
+## 5. Core features (MVP scope)
+
+### 5.1 Posting a complaint/review
+- Title, description, category (Product / Service / Billing / Warranty / Safety / Other), rating (1–5).
+- Tag: **Brand** (from a canonical brand list, or "add new brand"), **Location** (shop/branch, city, area — e.g., Viman Nagar, Pune), optional **Product** tag.
+- Attach evidence: photos, bill/invoice, screenshots (file upload).
+- Visibility: Public by default; option to keep contact details private (never public).
+- Status lifecycle: `Open → In Discussion → Brand Responded → Resolution Proposed → Resolved (Consumer Confirmed) / Reopened / Closed (Unresolved)`.
+
+### 5.2 Discussion thread
+- Threaded comments under each complaint (public).
+- Brand rep replies are visually distinguished (verified badge + "Official Response" tag).
+- Upvote/"me too" button — lets others signal they had the same issue with the same brand/location without duplicating posts.
+- @mention brand or location to notify.
+
+### 5.3 Resolution loop (the key differentiator)
+- Brand can propose a resolution (refund issued, replacement sent, apology, policy fix, etc.) with optional proof (attach doc).
+- **Only the original consumer** can mark it "Resolved – Confirmed."
+- If consumer disagrees, they can "Reject Resolution" with a reason → status returns to `Reopened`, visible in history.
+- Once resolved, consumer can leave an **updated review/feedback** reflecting the final experience (separate from the original complaint rating) — this becomes part of the brand's public track record.
+- Full resolution history is permanently visible on the thread (transparency, prevents brands from quietly editing status).
+
+### 5.4 Brand/shop profile pages
+- Auto-generated from tags; brand can claim and verify (business verification flow: GST number / business email / phone OTP / manual admin review).
+- Shows: overall rating, total complaints, % resolved, average resolution time, resolved-vs-unresolved breakdown by category, location-wise breakdown (useful for multi-branch chains).
+- "Claimed" vs "Unclaimed" badge — pushes brands to engage.
+
+### 5.5 Location tagging
+- Structured location (City → Area → Specific shop address, with map pin optional).
+- Browse/filter complaints by location — e.g., "all complaints in Viman Nagar, Pune."
+- Useful for local shops without a formal online presence.
+
+### 5.6 Search & discovery
+- Search by brand, location, product, keyword.
+- Filters: status (open/resolved), category, rating, date range, verified-brand-only.
+- Trending/most-discussed complaints; "Recently resolved" feed (builds trust in the platform).
+
+### 5.7 Notifications
+- Email/push for: new comment, brand response, resolution proposed, status change, mentions.
+
+### 5.8 Trust & safety / moderation
+- Report button (spam, fake, defamatory, abusive).
+- Rate limiting / anti-spam on posting (captcha, account age, phone verification for posting).
+- Admin moderation queue.
+- Edit history visible for transparency (can't silently alter a complaint after brand responds).
+- Anti-defamation guardrails: require evidence upload for serious allegations (fraud, safety), clear ToS on factual accuracy, dispute/appeal process for brands who feel a complaint is false.
+
+### 5.9 User profiles
+- Public username (real name optional), complaint history, credibility score (based on verified purchases, resolution confirmations, community flags).
+- Verified purchase indicator (optional: upload bill) — increases trust in the complaint.
+
+## 6. Nice-to-have / Phase 2+ features
+
+- Brand analytics dashboard (complaint trends, response-time SLAs, category breakdowns) — potential monetization.
+- API/integration to auto-escalate unresolved complaints after N days to National Consumer Helpline / E-Jagriti (India-specific).
+- Verified-purchase-only complaints for certain categories (reduces fake reviews).
+- Reputation/leaderboard for most-responsive brands.
+- Multi-language support (Hindi, Marathi, etc. given India focus).
+- Mobile app.
+- AI-assisted complaint categorization and duplicate-detection ("similar complaints found").
+- AI-drafted brand response suggestions (opt-in for brand accounts).
+- Public API for researchers/journalists (rate-limited, anonymized).
+
+## 7. Suggested data model (simplified)
+
+```
+User
+ - id, name, email, phone, password_hash, role (consumer/brand_rep/admin),
+   verified (bool), credibility_score, created_at
+
+Brand
+ - id, name, category, description, logo_url,
+   claimed_by_user_id (nullable), verification_status, created_at
+
+Location
+ - id, brand_id (nullable, for chains), address, area, city, state,
+   lat, lng, created_at
+
+Complaint
+ - id, user_id, brand_id, location_id (nullable), product_name (nullable),
+   title, description, category, rating, status,
+   evidence_urls[], created_at, updated_at
+
+Comment
+ - id, complaint_id, user_id, is_official_brand_reply (bool),
+   body, created_at
+
+ResolutionProposal
+ - id, complaint_id, proposed_by_user_id (brand rep),
+   description, evidence_urls[], status (proposed/confirmed/rejected),
+   created_at, resolved_confirmed_at
+
+Vote
+ - id, complaint_id, user_id, type (upvote / me_too)
+
+Report (moderation)
+ - id, target_type (complaint/comment), target_id, reported_by_user_id,
+   reason, status, created_at
+
+Notification
+ - id, user_id, type, payload, read (bool), created_at
+```
+
+## 8. Suggested tech stack (pick based on team familiarity — this is a reasonable default, not mandatory)
+
+- **Frontend**: React (Next.js) — SEO matters a lot here (public complaint pages should rank on Google), so SSR/ISR is important.
+- **Backend**: Node.js (NestJS/Express) or Django — either is fine; Django gives faster admin/moderation tooling out of the box.
+- **Database**: PostgreSQL (relational integrity matters for the resolution workflow + moderation).
+- **Search**: Postgres full-text search initially; move to Elasticsearch/Meilisearch once volume grows.
+- **File storage**: S3-compatible (evidence uploads, images).
+- **Auth**: Email/phone OTP + OAuth (Google) for consumers; separate verified onboarding flow for brand accounts.
+- **Notifications**: Email (Postmark/SES) + web push; SMS optional (India: MSG91/Twilio).
+- **Hosting**: Vercel (frontend) + Railway/Render/AWS (backend+DB) for MVP; move to AWS/GCP at scale.
+- **Maps**: Google Maps or Mapbox for location tagging/browsing.
+
+## 9. MVP scope (build this first, ship, then iterate)
+
+1. Auth (consumer signup/login).
+2. Post a complaint (title, description, category, rating, brand tag — free text is fine initially, no formal brand claiming yet, location tag as free text/city+area dropdown).
+3. Public complaint feed + individual complaint page with comments.
+4. Basic search/filter by brand name, location, status.
+5. Brand "claim this profile" request (manually verified by admin for MVP — no automated KYC yet).
+6. Brand reply (marked official) + "propose resolution" + consumer "confirm/reject resolution" loop.
+7. Report/flag button + basic admin moderation panel.
+8. Basic user profile page with complaint history.
+
+**Explicitly out of scope for MVP**: analytics dashboards, AI features, mobile app, multi-language, external escalation integrations, credibility scoring algorithm (just show raw counts initially).
+
+## 10. Key design/product risks to watch
+
+- **Defamation/legal risk**: false complaints against real brands/individuals can create legal liability for the platform. Need clear ToS, a takedown/appeal process, and possibly requiring evidence for serious claims. Consider legal review before public launch in India (IT Act intermediary liability / safe harbor considerations).
+- **Fake reviews/astroturfing**: both fake complaints (competitor sabotage) and fake "resolved, 5 stars now!" posts by bad-faith brand reps. Verified-purchase signals and the "only original consumer confirms resolution" rule help, but moderation is still needed.
+- **Cold start problem**: needs both consumers and brands to show up. Consider seeding with public data (e.g., scraping/aggregating existing public complaint counts per brand, with clear "unclaimed/unverified" labeling) or starting hyper-local (e.g., just Pune) to build density before expanding.
+- **Brand incentive to engage**: brands only show up if ignoring complaints costs them visibility/reputation. SEO-optimized public pages that rank on Google searches for "[Brand] complaints" are the main lever here.
+
+## 11. Success metrics (once live)
+
+- % of complaints that get a brand response within 7 days.
+- % of complaints marked "Resolved – Confirmed" by consumer (not just brand-claimed resolved).
+- Median time-to-resolution.
+- Monthly active complaint-posters and brand-responders.
+- Organic search traffic to complaint/brand pages (SEO is a major growth channel for this kind of platform).
+
+## 12. Possible monetization (later, not MVP)
+
+- Verified brand accounts with analytics dashboard = paid tier.
+- Priority/featured brand response tools.
+- API access for researchers, journalists, aggregators.
+- (Avoid ads/sponsorship that could bias visibility of complaints — kills trust, which is the core product.)
+
+## 13. Naming note
+
+"Panchaayat" is a placeholder — pick a name that signals both *review* and *resolution* (e.g., something evoking "heard," "fixed," "resolved," or a local-first Indian consumer-trust angle) before building the brand identity.

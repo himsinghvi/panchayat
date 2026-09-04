@@ -1,0 +1,32 @@
+# Environment & secrets
+.env
+.env.local
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+*.db
+*.sqlite3
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# Runtime uploads
+uploads/*
+!uploads/.gitkeep
+
+# IDE & OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.log
+
+# Build cache
+.pytest_cache/
+.coverage
+htmlcov/
