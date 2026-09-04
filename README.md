@@ -312,6 +312,7 @@ This repo is configured for Vercel serverless (see `vercel.json`).
 4. Add environment variables in Project Settings:
    - `SECRET_KEY` — required in production (random string)
    - `AZURE_OPENAI_*` — optional, for AI features
+   - **Do not** add `DATABASE_URL` unless you have a real Postgres URL — an empty value will break startup (the app auto-uses `/tmp` on Vercel)
 5. Deploy
 
 `vercel.json` runs `cd frontend && npm ci && npm run build` so the SPA is built into `static/dist` before the Python function starts.

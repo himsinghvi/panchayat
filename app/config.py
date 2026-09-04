@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 from functools import lru_cache
-from pydantic import Field
+from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings
 
 
@@ -29,6 +29,20 @@ class Settings(BaseSettings):
 
     class Config:
         env_file = ".env"
+
+    @field_validator("database_url", mode="before")
+    @classmethod
+    def resolve_database_url(cls, value):
+        if value is None or (isinstance(value, str) and not value.strip()):
+            return _default_database_url()
+        return value
+
+    @field_validator("secret_key", mode="before")
+    @classmethod
+    def resolve_secret_key(cls, value):
+        if value is None or (isinstance(value, str) and not value.strip()):
+            return "panchaayat-dev-secret-change-in-production"
+        return value
 
     @property
     def is_vercel(self) -> bool:
