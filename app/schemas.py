@@ -373,5 +373,50 @@ class DashboardStats(BaseModel):
     trending_categories: List[dict] = []
 
 
+# Social mentions
+class SocialMentionOut(BaseModel):
+    id: str
+    platform: str
+    platform_label: str
+    author: str
+    handle: Optional[str] = None
+    text: str
+    url: Optional[str] = None
+    posted_at: Optional[datetime] = None
+    relevance_score: float = 0.5
+    sentiment: Optional[str] = None
+    source: str = "demo"  # live | demo | search
+    engagement: Optional[str] = None
+
+
+class PlatformSearchLink(BaseModel):
+    platform: str
+    label: str
+    url: str
+    hint: Optional[str] = None
+
+
+class SocialApiSourceStatus(BaseModel):
+    platform: str
+    label: str
+    configured: bool
+    method: str
+    docs_url: Optional[str] = None
+
+
+class SocialMentionsResponse(BaseModel):
+    complaint_id: Optional[int] = None
+    brand_id: Optional[int] = None
+    brand_name: str
+    query_used: str
+    fetched_at: datetime
+    platforms_searched: List[str] = []
+    mentions: List[SocialMentionOut] = []
+    search_links: List[PlatformSearchLink] = []
+    live_count: int = 0
+    notes: List[str] = []
+    api_sources: List[SocialApiSourceStatus] = []
+
+
 CommentOut.model_rebuild()
 ComplaintListItem.model_rebuild()

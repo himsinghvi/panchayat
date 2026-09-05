@@ -4,6 +4,7 @@ import { api } from '../api'
 import { useAuth } from '../context/AuthContext'
 import StatusProgress from '../components/StatusProgress'
 import AdBanner from '../components/AdBanner'
+import SocialMentionsPanel from '../components/SocialMentionsPanel'
 
 export default function ComplaintDetail() {
   const { id } = useParams()
@@ -194,6 +195,7 @@ export default function ComplaintDetail() {
         </div>
 
         <div className="col-lg-4">
+          <SocialMentionsPanel complaintId={Number(id)} />
           <AdBanner placement="sidebar" category={complaint.category} keywords={complaint.ai_topics?.join(',')} city={complaint.city} area={complaint.area} />
           <div className="card-panchaayat p-3 mt-3">
             <h6 className="fw-bold">Escalation Options</h6>

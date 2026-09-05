@@ -4,6 +4,7 @@ import { api } from '../api'
 import ComplaintCard from '../components/ComplaintCard'
 import AdBanner from '../components/AdBanner'
 import StatCard from '../components/StatCard'
+import SocialMentionsPanel from '../components/SocialMentionsPanel'
 
 export default function BrandPage() {
   const { slug } = useParams()
@@ -49,6 +50,7 @@ export default function BrandPage() {
           {!complaints.length && <p className="text-muted">No complaints yet.</p>}
         </div>
         <div className="col-lg-4">
+          <SocialMentionsPanel brandId={brand.id} />
           <AdBanner placement="sidebar" category={brand.category} />
         </div>
       </div>

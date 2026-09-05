@@ -6,7 +6,10 @@ from app.database import get_db
 from app.models import (
     Complaint, ComplaintStatus, TimelineEvent, Brand, User, UserRole, Notification, Comment
 )
-from app.schemas import ComplaintCreate, ComplaintOut, ComplaintListItem, ComplaintUpdate
+from app.schemas import (
+    ComplaintCreate, ComplaintOut, ComplaintListItem, ComplaintUpdate, SocialMentionsResponse,
+)
+from app.services.social_mentions_service import fetch_social_mentions
 from app.auth import get_current_user_optional, get_current_user, require_role
 from app.serializers import complaint_to_out, complaint_to_list_item
 
@@ -87,6 +90,31 @@ def list_complaints(
 @router.get("/{complaint_id}", response_model=ComplaintOut)
 def get_complaint(complaint_id: int, db: Session = Depends(get_db)):
     return _get_complaint_full(complaint_id, db)
+
+
+@router.get("/{complaint_id}/social-mentions", response_model=SocialMentionsResponse)
+def get_complaint_social_mentions(
+    complaint_id: int,
+    platforms: str = Query("all", description="Comma-separated: all,twitter,reddit,linkedin,facebook,instagram,hackernews"),
+    db: Session = Depends(get_db),
+):
+    complaint = db.query(Complaint).options(joinedload(Complaint.brand)).filter(
+        Complaint.id == complaint_id
+    ).first()
+    if not complaint:
+        raise HTTPException(404, "Complaint not found")
+    brand = complaint.brand
+    platform_list = [p.strip().lower() for p in platforms.split(",") if p.strip()]
+    result = fetch_social_mentions(
+        brand_name=brand.name if brand else "",
+        title=complaint.title or "",
+        description=complaint.description or "",
+        category=complaint.category or "",
+        brand_slug=brand.slug if brand else "",
+        platforms=platform_list,
+    )
+    result["complaint_id"] = complaint_id
+    return result
 
 
 @router.post("", response_model=ComplaintOut)

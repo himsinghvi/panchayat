@@ -27,6 +27,18 @@ class Settings(BaseSettings):
     algorithm: str = "HS256"
     access_token_expire_minutes: int = 60 * 24 * 7
 
+    # Social media API keys (optional — enables live ingestion beyond public APIs)
+    twitter_bearer_token: str = ""
+    reddit_client_id: str = ""
+    reddit_client_secret: str = ""
+    reddit_user_agent: str = "Panchaayat/1.0"
+    meta_access_token: str = ""
+    meta_page_id: str = ""
+    meta_instagram_business_id: str = ""
+    linkedin_access_token: str = ""
+    serpapi_key: str = ""
+    social_mentions_include_demo: bool = True
+
     class Config:
         env_file = ".env"
 

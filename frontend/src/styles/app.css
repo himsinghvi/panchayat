@@ -903,3 +903,209 @@ body {
     flex-wrap: wrap;
   }
 }
+
+/* Social mentions panel */
+.social-mentions-panel {
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.15rem;
+  margin-bottom: 1rem;
+  box-shadow: var(--shadow-sm);
+}
+.social-mentions-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
+}
+.social-platform-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.85rem;
+}
+.social-platform-chip {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  border-radius: 999px;
+  padding: 0.2rem 0.65rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.social-platform-chip:hover,
+.social-platform-chip.active {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 12%, transparent);
+}
+.social-platform-chip.api-connected {
+  border-color: color-mix(in srgb, var(--success) 50%, var(--border));
+}
+.social-platform-chip .api-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--success);
+  margin-left: 0.25rem;
+  vertical-align: middle;
+}
+.social-api-status {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.social-api-badge {
+  font-size: 0.68rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--success) 12%, var(--surface));
+  color: var(--success);
+  border: 1px solid color-mix(in srgb, var(--success) 25%, transparent);
+}
+.social-mentions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-height: 420px;
+  overflow-y: auto;
+  padding-right: 0.15rem;
+}
+.social-mention-card {
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--platform-color, var(--primary));
+  border-radius: var(--radius);
+  padding: 0.75rem 0.85rem;
+  background: var(--surface);
+  transition: box-shadow 0.15s ease;
+}
+.social-mention-card:hover {
+  box-shadow: var(--shadow-sm);
+}
+.social-mention-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+}
+.social-platform-badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--platform-color, var(--primary));
+}
+.social-mention-author {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.8rem;
+  margin-bottom: 0.35rem;
+}
+.social-mention-text {
+  font-size: 0.875rem;
+  line-height: 1.45;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+.social-mention-footer {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.sentiment-pill {
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.12rem 0.45rem;
+  border-radius: 999px;
+}
+.sentiment-negative {
+  background: rgba(232, 101, 74, 0.15);
+  color: var(--accent, #E8654A);
+}
+.sentiment-positive {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--success);
+}
+.sentiment-neutral {
+  background: var(--surface-muted);
+  color: var(--text-muted);
+}
+.social-search-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+.social-search-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-decoration: none;
+  color: var(--text);
+  font-size: 0.8rem;
+  background: var(--surface);
+  transition: border-color 0.15s, background 0.15s;
+}
+.social-search-link:hover {
+  border-color: var(--platform-color, var(--primary));
+  background: color-mix(in srgb, var(--platform-color, var(--primary)) 8%, var(--surface));
+  color: var(--text);
+}
+.social-search-link i {
+  color: var(--platform-color, var(--primary));
+  font-size: 1rem;
+}
+.social-search-link small {
+  color: var(--text-muted);
+  font-size: 0.68rem;
+}
+.social-empty-state {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  color: var(--text-muted);
+}
+.social-empty-state i {
+  font-size: 2rem;
+  opacity: 0.4;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.social-mentions-disclaimer {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  padding: 0.5rem 0.65rem;
+  background: var(--surface-muted);
+  border-radius: var(--radius);
+  line-height: 1.4;
+}
+.social-mentions-skeleton .skeleton-card {
+  height: 88px;
+  border-radius: var(--radius);
+  background: linear-gradient(90deg, var(--surface-muted) 25%, var(--surface) 50%, var(--surface-muted) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s infinite;
+  margin-bottom: 0.65rem;
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+.social-mentions-compact .social-mentions-list {
+  max-height: 320px;
+}
+.social-chatter-teaser {
+  color: var(--primary);
+  opacity: 0.85;
+}

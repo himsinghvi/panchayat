@@ -59,4 +59,9 @@ export const api = {
   notifications: () => request('/notifications'),
   homeStats: () => request('/stats/home'),
   locations: () => request('/locations'),
+  socialMentionsForComplaint: (id, platforms = 'all') =>
+    request(`/complaints/${id}/social-mentions?platforms=${encodeURIComponent(platforms)}`),
+  socialMentionsForBrand: (id, platforms = 'all') =>
+    request(`/brands/${id}/social-mentions?platforms=${encodeURIComponent(platforms)}`),
+  socialMentionsConfig: () => request('/social-mentions/config'),
 }

@@ -63,6 +63,7 @@ export default function ComplaintCard({ complaint, delay = 0, showMatchReasons =
           <span><i className="bi bi-chat me-1" />{complaint.comment_count} comments</span>
         )}
         {complaint.has_brand_response && <span className="text-primary"><i className="bi bi-check-circle me-1" />Brand responded</span>}
+        <span className="social-chatter-teaser"><i className="bi bi-megaphone me-1" />Social chatter</span>
       </div>
       <div className="mt-2 d-flex justify-content-between align-items-center">
         <span className="small text-muted">by {complaint.author_name}</span>

@@ -1,9 +1,10 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session, joinedload
 from sqlalchemy import or_
 from app.database import get_db
 from app.models import Brand, Complaint, ComplaintStatus, Comment, User, UserRole
-from app.schemas import BrandOut, ComplaintListItem, DashboardStats
+from app.schemas import BrandOut, ComplaintListItem, DashboardStats, SocialMentionsResponse
+from app.services.social_mentions_service import fetch_social_mentions
 from app.serializers import brand_to_out, complaint_to_list_item
 from app.auth import get_current_user, require_role
 
@@ -30,6 +31,28 @@ def get_brand_by_slug(slug: str, db: Session = Depends(get_db)):
     if not brand:
         raise HTTPException(404)
     return brand_to_out(brand)
+
+
+@router.get("/{brand_id}/social-mentions", response_model=SocialMentionsResponse)
+def get_brand_social_mentions(
+    brand_id: int,
+    platforms: str = Query("all"),
+    db: Session = Depends(get_db),
+):
+    brand = db.query(Brand).filter(Brand.id == brand_id).first()
+    if not brand:
+        raise HTTPException(404)
+    platform_list = [p.strip().lower() for p in platforms.split(",") if p.strip()]
+    result = fetch_social_mentions(
+        brand_name=brand.name,
+        title="",
+        description=brand.description or "",
+        category=brand.category or "",
+        brand_slug=brand.slug,
+        platforms=platform_list,
+    )
+    result["brand_id"] = brand_id
+    return result
 
 
 @router.get("/{brand_id}/complaints", response_model=list[ComplaintListItem])

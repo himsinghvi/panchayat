@@ -12,7 +12,7 @@ from app.config import get_settings
 from app.database import engine, Base
 from app.seed import seed_database
 from app.migrate import migrate_db, sync_ad_targeting, sync_sample_comments
-from app.routers import auth, complaints, interactions, brands, search_ai, admin
+from app.routers import auth, complaints, interactions, brands, search_ai, admin, social
 
 logger = logging.getLogger(__name__)
 
@@ -57,6 +57,7 @@ app.include_router(interactions.router)
 app.include_router(brands.router)
 app.include_router(search_ai.router)
 app.include_router(admin.router)
+app.include_router(social.router)
 
 settings = get_settings()
 STATIC_DIR = settings.static_dir
